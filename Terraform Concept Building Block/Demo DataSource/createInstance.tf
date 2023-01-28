@@ -1,6 +1,8 @@
 # It will fetch all the availability zones in the region ec2 is created
 data "aws_availability_zones" "available" { }
 
+# It will fetch the ami for the ubuntu machines for the owner = 099720109477
+# and apply the both the filter
 data "aws_ami" "latest-ubuntu" {
   most_recent = true
   owners = ["099720109477"]
@@ -14,7 +16,6 @@ data "aws_ami" "latest-ubuntu" {
 	name = "virtualization-type"
 	values = ["hvm"]
   }
-
 }
 
 resource "aws_instance" "MyFirstInstance" {
