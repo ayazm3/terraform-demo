@@ -23,8 +23,16 @@ resource "aws_instance" "MyFirstInstance" {
 	instance_type = "t2.micro"
 	availability_zone = data.aws_availability_zones.available.names[0]
 
+	provisioner "local-exec" {
+	  command = "echo aws_instance.MyFirstInstance.private_ip >> my_private_ips.txt"
+	}
+
 	tags = {
 		Name = "custom_instance"
 	}
 	# security_groups = var.Security_Group #"${var.Security_Group}"
+}
+
+output "public_ip" {
+	value = aws_instance.MyFirstInstance.public_ip
 }
